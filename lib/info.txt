@@ -1,0 +1,62 @@
+Feature: User interactions with the Dock
+  As a user
+  I want to interact with the Dock
+  So that I can rearrange, add, or remove items
+
+  Scenario: Rearrange items in the Dock
+    Given the Dock is visible with the following items:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Camera   |
+      | Photo    |
+    When the user drags the "Call" item
+    And drops it before the "Message" item
+    Then the Dock should display the items in the following order:
+      | Person   |
+      | Call     |
+      | Message  |
+      | Camera   |
+      | Photo    |
+
+  Scenario: Remove an item from the Dock
+    Given the Dock is visible with the following items:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Camera   |
+      | Photo    |
+    When the user drags the "Camera" item
+    And drops it outside the Dock area
+    Then the Dock should display the items in the following order:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Photo    |
+
+  Scenario: Add an item back to the Dock
+    Given the Dock is visible with the following items:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Photo    |
+    And the "Camera" item is outside the Dock
+    When the user drags the "Camera" item
+    And drops it into the Dock
+    Then the Dock should display the items in the following order:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Photo    |
+      | Camera   |
+
+  Scenario: Hover over an item in the Dock
+    Given the Dock is visible with the following items:
+      | Person   |
+      | Message  |
+      | Call     |
+      | Camera   |
+      | Photo    |
+    When the user hovers over the "Photo" item
+    Then the "Photo" item should visually scale up
+    And no other item should be scaled up
